@@ -21,8 +21,24 @@ app.get('/', function(req, res) {
     res.render('index', { dev: dev })
 });
 
+app.get('/chastni-uroci-po-matematika', function(req, res) {
+    res.render('lessons', { dev: dev })
+});
+
+app.get('/zapazi-chas-za-urok-po-matematika', function(req, res) {
+    res.render('booking', { dev: dev })
+});
+
+app.get('/chastni-uroci-po-matematika-ceni', function(req, res) {
+    res.render('prices', { dev: dev })
+});
+
+app.get('/chastni-uroci-po-matematika/za-uchitelq', function(req, res) {
+    res.render('teacher', { dev: dev })
+});
+
 app.get('*', function(req, res) {
-    res.send('what???', 404);
+    res.send('TODO: Create 404 page', 404);
 });
 
 setInterval(function() {
