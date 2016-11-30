@@ -18,7 +18,7 @@ app.use("views", express.static(__dirname + '/views'));
 
 
 app.get('/', function(req, res) {
-    res.render('pages/index', { dev: dev })
+    res.render('index', { dev: dev })
 });
 
 app.get('*', function(req, res) {
