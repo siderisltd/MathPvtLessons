@@ -4,14 +4,14 @@
 
           <div class="navbar-header">
               <a href="/" class="logo-image">
-                  <img src="res/images/logo.png" alt="logo" width="59" height="68" />
+                  <img src="res/images/logo.png" alt="logo" width="59" height="68" <% if (typeof(pageId) !== typeof(undefined) && pageId === 'index') { %>class="active-logo" <% } %> />
               </a>
           </div>
 
           <nav class="navigation">
               <ul class="menu">
-                  <li>
-                      <a href="/chastni-uroci-po-matematika">Уроци</a>
+                  <li  <% if (typeof(pageId) !== typeof(undefined) && pageId === 'lessons') { %>class="active-menu-item" <% } %> >
+                      <a href="/chastni-uroci-po-matematika" >Уроци</a>
                       <ul class="submenu">
                           <li><a href="/chastni-uroci-po-matematika/5">5 Клас</a></li>
                           <li><a href="/chastni-uroci-po-matematika/6">6 Клас</a></li>
@@ -23,12 +23,14 @@
                           <li><a href="/chastni-uroci-po-matematika/9">12 Клас</a></li>
                       </ul>
                   </li>
-                  <li><a href="/zapazi-chas-za-urok-po-matematika">Запази час</a></li>
-                  <li>
-                      <a href="/chastni-uroci-po-matematika-ceni">Цени</a>
+                  <li <% if (typeof(pageId) !== typeof(undefined) && pageId === 'booking') { %>class="active-menu-item" <% } %> >
+                    <a href="/zapazi-chas-za-urok-po-matematika">Запази час</a>
                   </li>
-                  <li class="active">
-                      <a href="/chastni-uroci-po-matematika/za-uchitelq">За учителя</a>
+                  <li <% if (typeof(pageId) !== typeof(undefined) && pageId === 'prices') { %>class="active-menu-item" <% } %>>
+                      <a href="/chastni-uroci-po-matematika-ceni" >Цени</a>
+                  </li>
+                  <li <% if (typeof(pageId) !== typeof(undefined) && pageId === 'teacher') { %>class="active-menu-item" <% } %> >
+                      <a href="/chastni-uroci-po-matematika/za-uchitelq" >За учителя</a>
                   </li>
               </ul>
           </nav>

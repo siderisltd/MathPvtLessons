@@ -38,6 +38,11 @@
     display: none;
 }
 
+.active-logo {
+    box-shadow: 0 0 60px gold, 0 0 105px gold;
+    background-color: rgba(255, 215, 0, 0.57);
+}
+
 .footer {
     background: #282828;
     padding: 10px 0;
@@ -54,8 +59,6 @@
     font-size: 20px;
     padding: 10px;
     border-right: 1px solid #70726F;
-    -webkit-transition: all .5s ease;
-    transition: all .5s ease;
 }
 
 .footer a:first-child {
@@ -79,10 +82,6 @@
     }
     .mobile-nav {
         display: inline;
-    }
-    .container {
-        margin: 10px;
-        min-width: 90px;
     }
 }
 

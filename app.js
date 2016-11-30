@@ -5,7 +5,7 @@ var engine = require('ejs-mate');
 
 var app = express();
 
-var dev = true;
+var dev = false;
 
 app.engine('ejs', engine);
 app.set('view engine', 'ejs')
@@ -18,23 +18,23 @@ app.use("views", express.static(__dirname + '/views'));
 
 
 app.get('/', function(req, res) {
-    res.render('index', { dev: dev })
+    res.render('index', { dev: dev, pageId: 'index' })
 });
 
 app.get('/chastni-uroci-po-matematika', function(req, res) {
-    res.render('lessons', { dev: dev })
+    res.render('lessons', { dev: dev, pageId: 'lessons' })
 });
 
 app.get('/zapazi-chas-za-urok-po-matematika', function(req, res) {
-    res.render('booking', { dev: dev })
+    res.render('booking', { dev: dev, pageId: 'booking' })
 });
 
 app.get('/chastni-uroci-po-matematika-ceni', function(req, res) {
-    res.render('prices', { dev: dev })
+    res.render('prices', { dev: dev, pageId: 'prices' })
 });
 
 app.get('/chastni-uroci-po-matematika/za-uchitelq', function(req, res) {
-    res.render('teacher', { dev: dev })
+    res.render('teacher', { dev: dev, pageId: 'teacher' })
 });
 
 app.get('*', function(req, res) {

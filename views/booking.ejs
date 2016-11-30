@@ -1,3 +1,55 @@
 <% layout('shared/layout') -%>
 
 <h1>Booking</h1>
+ <form role="form" class="booking-form form-horizontal">
+        <div class="row">
+            <div class="col-lg-7 col-lg-offset-1 col-md-8 <col-md-offset-1></col-md-offset-1> col-sm-10 col-sm-offset-1 col-xs-12">
+                <div class="input-group input-group-lg">
+
+                    <div class="form-group">
+                        <label for="personName">Вашето име</label>
+                        <input type="text" id="personName" class="form-control" name="person.name" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="personPhone">Телефон за връзка</label>
+                        <input type="tel" id="personPhone" class="form-control" name="person.phone" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="lessonClassSelect">Урок за</label>
+                        <select class="form-control" id="lessonClassSelect">
+                            <option>5 клас</option>
+                            <option>6 клас</option>
+                            <option>7 клас</option>
+                            <option>8 клас</option>
+                            <option>9 клас</option>
+                            <option>10 клас</option>
+                            <option>11 клас</option>
+                            <option>12 клас</option>
+                        </select>
+                    </div>
+
+                        <div class="form-group">
+                            <legend>Урока ще се проведе</legend>
+                            <div class="form-check">
+                                <label class="form-check-label"><input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked="checked">На собствен адрес</label>
+                            </div>
+                            <div class="form-check">
+                                <label class="form-check-label"><input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2">На адрес на учителя</label>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+
+                            <div class="form-group">
+                                <label class="form-check-label"><input type="checkbox" class="form-check-input">Наясно съм, че запазвам истински урок с преподавателя по математика</label>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-success pull-right">Готово</button>
+    </form>
