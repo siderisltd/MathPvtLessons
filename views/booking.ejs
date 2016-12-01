@@ -1,55 +1,59 @@
 <% layout('shared/layout') -%>
 
-<h1>Booking</h1>
- <form role="form" class="booking-form form-horizontal">
-        <div class="row">
-            <div class="col-lg-7 col-lg-offset-1 col-md-8 <col-md-offset-1></col-md-offset-1> col-sm-10 col-sm-offset-1 col-xs-12">
-                <div class="input-group input-group-lg">
+<div class="row">
+    <div class="col-lg-7 col-lg-offset-1 col-md-8 col-md-offset-1 col-md-offset-1 col-sm-10 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+        <h1 id="booking-title" class="margin-top-10 margin-bottom-20">Запазване на час</h1>
 
-                    <div class="form-group">
-                        <label for="personName">Вашето име</label>
-                        <input type="text" id="personName" class="form-control" name="person.name" />
+        <form role="form" id="booking-form" class="form-horizontal" method="POST" action="/zapazi-chas-za-urok-po-matematika">
+
+            <div class="input-group input-group-lg">
+
+                <div class="form-group">
+                    <label for="name">Вашето име</label>
+                    <input type="text" id="name" class="form-control" name="name" />
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Телефон за връзка</label>
+                    <input type="tel" id="phone" class="form-control" name="phone" />
+                </div>
+
+                <div class="form-group">
+                    <label for="lessonClass">Урок за</label>
+                    <select class="form-control" id="lessonClass" name="lessonsClass">
+                            <option value="5">5 клас</option>
+                            <option value="6">6 клас</option>
+                            <option value="7">7 клас</option>
+                            <option value="8">8 клас</option>
+                            <option value="9">9 клас</option>
+                            <option value="10">10 клас</option>
+                            <option value="11">11 клас</option>
+                            <option value="12">12 клас</option>
+                    </select>
+                </div>
+
+                <div class="form-group margin-bottom-30">
+                    <legend>Урока ще се проведе</legend>
+                    <div class="form-check">
+                        <label class="form-check-label"><input type="radio" class="form-check-input" name="address" value="own" checked="checked"> На собствен адрес</label>
                     </div>
-
-                    <div class="form-group">
-                        <label for="personPhone">Телефон за връзка</label>
-                        <input type="tel" id="personPhone" class="form-control" name="person.phone" />
-                    </div>
-
-                    <div class="form-group">
-                        <label for="lessonClassSelect">Урок за</label>
-                        <select class="form-control" id="lessonClassSelect">
-                            <option>5 клас</option>
-                            <option>6 клас</option>
-                            <option>7 клас</option>
-                            <option>8 клас</option>
-                            <option>9 клас</option>
-                            <option>10 клас</option>
-                            <option>11 клас</option>
-                            <option>12 клас</option>
-                        </select>
-                    </div>
-
-                        <div class="form-group">
-                            <legend>Урока ще се проведе</legend>
-                            <div class="form-check">
-                                <label class="form-check-label"><input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios1" value="option1" checked="checked">На собствен адрес</label>
-                            </div>
-                            <div class="form-check">
-                                <label class="form-check-label"><input type="radio" class="form-check-input" name="optionsRadios" id="optionsRadios2" value="option2">На адрес на учителя</label>
-                            </div>
-                        </div>
-                        <br />
-                        <br />
-
-                            <div class="form-group">
-                                <label class="form-check-label"><input type="checkbox" class="form-check-input">Наясно съм, че запазвам истински урок с преподавателя по математика</label>
-                            </div>
-
-
-                        </div>
+                    <div class="form-check">
+                        <label class="form-check-label"><input type="radio" class="form-check-input" name="address" value="teacher"> На адрес на учителя (близо до метростанция "Константин Величков")</label>
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-success pull-right">Готово</button>
-    </form>
+                <div class="form-group">
+                    <label class="form-check-label">
+                      <input type="checkbox" class="form-check-input" id="agree" name="agree" >Наясно съм, че запазвам истински урок с преподавателя по математика
+                    </label>
+                </div>
+
+                <input type="submit" class="btn btn-success pull-right margin-bottom-60" value="Запази" />
+                <button type="button" class="btn btn-danger pull-right margin-bottom-60 margin-right-10">Отказ</button>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="res/scripts/booking-validation.js"></script>

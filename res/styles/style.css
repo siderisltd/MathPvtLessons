@@ -1,4 +1,9 @@
-﻿.center-div {
+﻿h1 {
+    margin: 0;
+    padding: 0;
+}
+
+.center-div {
     display: block;
     margin: 0 auto;
 }
@@ -43,6 +48,44 @@
     background-color: rgba(255, 215, 0, 0.57);
 }
 
+.margin-top-10 {
+    margin-top: 10;
+}
+
+.margin-bottom-20 {
+    margin-bottom: 30px;
+}
+
+.margin-bottom-30 {
+    margin-bottom: 30px;
+}
+
+.margin-bottom-40 {
+    margin-bottom: 40px;
+}
+
+.margin-bottom-60 {
+    margin-bottom: 60px;
+}
+
+.margin-right-10 {
+    margin-right: 10px;
+}
+
+#spacing-el {
+    margin-bottom: 40px;
+}
+
+#booking-title {
+    left: -18px;
+    position: relative;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+}
+
 .footer {
     background: #282828;
     padding: 10px 0;
@@ -82,6 +125,9 @@
     }
     .mobile-nav {
         display: inline;
+    }
+    #spacing-el {
+        margin-bottom: 124px;
     }
 }
 

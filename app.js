@@ -16,7 +16,6 @@ app.use("/node_modules", express.static(__dirname + '/node_modules'));
 app.use("/dist", express.static(__dirname + '/dist'));
 app.use("views", express.static(__dirname + '/views'));
 
-
 app.get('/', function(req, res) {
     res.render('index', { dev: dev, pageId: 'index' })
 });
@@ -27,6 +26,23 @@ app.get('/chastni-uroci-po-matematika', function(req, res) {
 
 app.get('/zapazi-chas-za-urok-po-matematika', function(req, res) {
     res.render('booking', { dev: dev, pageId: 'booking' })
+});
+
+app.post('/zapazi-chas-za-urok-po-matematika', function(req, res) {
+
+    // check for cookie value
+
+    // validate data if not return to form with filled data
+
+    // set cookie with 4 hrs expiration
+
+    // set appointment in the calendar
+
+    // send email with the data
+
+    // redirect to index
+
+    // show toast with success message
 });
 
 app.get('/chastni-uroci-po-matematika-ceni', function(req, res) {
@@ -44,7 +60,7 @@ app.get('*', function(req, res) {
 setInterval(function() {
     request('https://calingappreqs.herokuapp.com/', function(error, response, body) {
         if (!error && response.statusCode == 200) {
-            console.log(body) // Show the HTML for the Google homepage.
+            console.log(body);
         }
     })
 }, 20 * 1000 * 60); // 20 mins
