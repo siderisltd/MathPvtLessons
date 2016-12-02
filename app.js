@@ -10,15 +10,16 @@ var nodemailer = require('nodemailer');
 var RateLimit = require('express-rate-limit');
 
 var app = express();
+
 app.enable('trust proxy');
 
 var dev = true;
 var secret = '2JH6stayiISADHYasdhaghgu123jhhsad6';
 
-var emailUsername = 'urocimatematikaneli@gmail.com';
-var emailPassword = 'urocimatematikaneli123';
+var emailUsername = 'urokmatematika@yahoo.com';
+var emailPassword = 'NeliKancheva123';
 
-var emailReceiver = 'kancheva.neli@gmail.com'
+var emailReceiver = 'siderisltd@gmail.com'
 
 app.engine('ejs', engine);
 app.set('view engine', 'ejs');
@@ -27,7 +28,7 @@ app.use(session({
     secret: 'IADJHAKSDHA&ÂS*^D@4hJ&*&(!@(€С§ААСДХгад-hhwgejqhgjh3242!276njGJAsd8asd76',
     resave: false,
     saveUninitialized: true,
-    cookie: { maxAge: 3600000 * 4 } // 4 hours  //dev cookie: { maxAge: 60 * 60 } //
+    cookie: { maxAge: 3600000 * 4 } // 4 hours
 }));
 
 app.use("/res", express.static(__dirname + '/res'));
@@ -76,7 +77,7 @@ app.post('/zapazi-chas-za-urok-po-matematika', requestLimiter, cacheControl('no-
         var address = 'жк Манастирски ливади ул.Клокотница 21';
 
         var transporter = nodemailer.createTransport({
-            service: 'Gmail',
+            service: 'Yahoo',
             auth: {
                 user: emailUsername,
                 pass: emailPassword
