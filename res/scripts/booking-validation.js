@@ -27,9 +27,9 @@ $(function() {
         errorPlacement: function(error, element) {
             error.insertBefore(element.parent());
         }
-    });
+    })
 
     jQuery.validator.addMethod("lettersOnly", function(value, element) {
         return this.optional(element) || /^[A-z А-з ]+$/i.test(value);
-    });
-});
+    })
+})

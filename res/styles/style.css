@@ -1,4 +1,8 @@
-﻿h1 {
+﻿body {
+    font-size: 14px;
+}
+
+h1 {
     margin: 0;
     padding: 0;
 }
@@ -23,15 +27,16 @@
     min-height: 100%;
 }
 
-.nav-container {
-    padding-left: 75px;
+.form-horizontal .form-group {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
-.content {
-    margin: 0 auto;
-    max-width: 1000px;
-    min-height: 100%;
-    padding: 40px 40px 0 40px;
+#header {
+    position: relative;
+    left: 92px;
 }
 
 .navbar-header {
@@ -81,6 +86,12 @@
     position: relative;
 }
 
+.img-responsive {
+    float: left;
+    margin: 10 10 10 10;
+    margin: 0 30px 10px 0;
+}
+
 .error {
     color: red;
     font-weight: bold;
@@ -94,7 +105,6 @@
 #myCarousel {
     max-width: 800px;
     margin: 0 auto;
-    left: -31px;
 }
 
 .carousel-indicators li {
@@ -146,6 +156,17 @@
     margin-top: 20px;
 }
 
+.row-centered {
+    text-align: center;
+}
+
+.col-centered {
+    display: inline-block;
+    float: none;
+    text-align: left;
+    margin-right: -4px;
+}
+
 .footer {
     background: #282828;
     padding: 10px 0;
@@ -174,6 +195,18 @@
     transition: all .5s ease;
 }
 
+@media only screen and (max-width: 1221px) {
+    #header {
+        left: 93 px;
+    }
+}
+
+@media only screen and (max-width: 1199px) {
+    #header {
+        left: -5px;
+    }
+}
+
 @media only screen and (max-width: 993px) {
     .navigation {
         display: none;
@@ -189,8 +222,13 @@
     #spacing-el {
         margin-bottom: 124px;
     }
-    #myCarousel {
-        left: 0;
+}
+
+@media only screen and (max-width: 585px) {
+    #teacher-avatar {
+        float: none;
+        margin: 0 auto;
+        margin-bottom: 25px;
     }
 }
 
