@@ -30,6 +30,6 @@ $(function() {
     });
 
     jQuery.validator.addMethod("lettersOnly", function(value, element) {
-        return this.optional(element) || /^[a-z ]+$/i.test(value);
+        return this.optional(element) || /^[A-z А-з ]+$/i.test(value);
     });
 });

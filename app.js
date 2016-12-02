@@ -2,59 +2,149 @@ var express = require('express');
 var path = require('path');
 var request = require('request');
 var engine = require('ejs-mate');
+var cacheControl = require('express-cache-controlfreak');
+var session = require('express-session');
+var passwordHash = require('password-hash');
+var bodyParser = require('body-parser');
+var nodemailer = require('nodemailer');
+var RateLimit = require('express-rate-limit');
 
 var app = express();
+app.enable('trust proxy');
 
-var dev = false;
+var dev = true;
+var secret = '2JH6stayiISADHYasdhaghgu123jhhsad6';
+
+var emailUsername = 'urocimatematikaneli@gmail.com';
+var emailPassword = 'urocimatematikaneli123';
+
+var emailReceiver = 'siderisltd@gmail.com'
 
 app.engine('ejs', engine);
-app.set('view engine', 'ejs')
+app.set('view engine', 'ejs');
+
+app.use(session({
+    secret: 'IADJHAKSDHA&ÂS*^D@4hJ&*&(!@(€С§ААСДХгад-hhwgejqhgjh3242!276njGJAsd8asd76',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 60 * 60 } //cookie: { maxAge: 3600000 * 4 } // 4 hours
+}));
 
 app.use("/res", express.static(__dirname + '/res'));
 app.use("/node_modules", express.static(__dirname + '/node_modules'));
-
 app.use("/dist", express.static(__dirname + '/dist'));
 app.use("views", express.static(__dirname + '/views'));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-app.get('/', function(req, res) {
-    res.render('index', { dev: dev, pageId: 'index' })
+app.get('/', cacheControl({ maxAge: 86400000 * 3 }), function(req, res) { // 3 days
+    res.render('index', { pageId: 'index' })
 });
 
-app.get('/chastni-uroci-po-matematika', function(req, res) {
-    res.render('lessons', { dev: dev, pageId: 'lessons' })
+app.get('/chastni-uroci-po-matematika', cacheControl({ maxAge: 86400000 * 3 }), function(req, res) {
+    res.render('lessons', { pageId: 'lessons' })
 });
 
-app.get('/zapazi-chas-za-urok-po-matematika', function(req, res) {
-    res.render('booking', { dev: dev, pageId: 'booking' })
+app.get('/zapazi-chas-za-urok-po-matematika', cacheControl('no-cache'), function(req, res) {
+
+    if (!req.session.secret) {
+        res.render('booking', { pageId: 'booking' })
+    } else {
+
+        var remainingTime = msToTime(req.session.cookie.maxAge);
+
+        res.render('alreadyBooked', { remainingTime: remainingTime });
+    }
 });
 
-app.post('/zapazi-chas-za-urok-po-matematika', function(req, res) {
 
-    // check for cookie value
-
-    // validate data if not return to form with filled data
-
-    // set cookie with 4 hrs expiration
-
-    // set appointment in the calendar
-
-    // send email with the data
-
-    // redirect to index
-
-    // show toast with success message
+var requestLimiter = new RateLimit({
+    windowMs: 3600000 * 4, // 4 hrs
+    max: 1, // start blocking after 1 requests 
+    message: "Изглежда или нямате активирани cookies или се опитвате да мамите. Ще може да запазите час след 4 часа."
 });
 
-app.get('/chastni-uroci-po-matematika-ceni', function(req, res) {
-    res.render('prices', { dev: dev, pageId: 'prices' })
+//TODO: add requestLimiter before cacheControl middleware
+app.post('/zapazi-chas-za-urok-po-matematika', cacheControl('no-cache'), function(req, res) {
+
+    if (!req.session.secret) {
+        var name = req.body.name;
+        var phone = req.body.phone;
+        var lessonFor = req.body.lessonsClass;
+        var forCustomerAddress = req.body.address === 'own';
+        var forTeacherAddress = req.body.address === 'teacher';
+        var address = 'жк Манастирски ливади ул.Клокотница 21';
+
+        var transporter = nodemailer.createTransport({
+            service: 'Gmail',
+            auth: {
+                user: emailUsername,
+                pass: emailPassword
+            }
+        });
+
+        var text = 'Здравей Нели! \nТоку що ' + name + ' запази урок по математика.\nТелефонът му е: ' + phone + '\nЖелае урока да бъде проведен на ';
+
+        if (forCustomerAddress) {
+            text += 'негов адрес, който е: ' + address;
+        } else if (forTeacherAddress) {
+            text += 'твой адрес'
+        }
+
+        text += '\nПоздрави и успешен ден!';
+
+        var mailOptions = {
+            from: emailUsername, // sender address
+            to: emailReceiver, // list of receivers
+            subject: 'Частен урок по математика', // Subject line
+            text: text
+        };
+
+        // transporter.sendMail(mailOptions, function(error, info) {
+        //     if (error) {
+        //         console.log(error);
+        //     }
+        // });
+
+        // console.log('name: ' + name);
+        // console.log('phone: ' + phone);
+        // console.log('klas: ' + lessonFor);
+        // console.log('tehen adres: ' + forCustomerAddress);
+        // console.log('adres na uchitelq: ' + forTeacherAddress);
+
+        // validate data if not return to form with filled data
+
+        req.session.secret = passwordHash.generate(secret);
+
+        // set appointment in the calendar
+
+        res.redirect('/blagodarim-che-zapazihte-chas');
+    } else {
+        res.render('alreadyBooked');
+    }
 });
 
-app.get('/chastni-uroci-po-matematika/za-uchitelq', function(req, res) {
-    res.render('teacher', { dev: dev, pageId: 'teacher' })
+app.get('/blagodarim-che-zapazihte-chas', cacheControl('no-cache'), function(req, res) {
+    if ((!req.session.secret || !passwordHash.verify(secret, req.session.secret)) && !req.session.hasBooked) {
+        res.redirect('/');
+    } else {
+        //req.session.hasBooked = 'true';
+
+        res.render('successBooking');
+    }
+});
+
+app.get('/chastni-uroci-po-matematika-ceni', cacheControl({ maxAge: 86400000 * 3 }), function(req, res) {
+    res.render('prices', { pageId: 'prices' })
+});
+
+app.get('/chastni-uroci-po-matematika/za-uchitelq', cacheControl({ maxAge: 86400000 * 3 }), function(req, res) {
+    res.render('teacher', { pageId: 'teacher' })
 });
 
 app.get('*', function(req, res) {
-    res.send('TODO: Create 404 page', 404);
+    res.status(400);
+    res.render('errors/404');
 });
 
 setInterval(function() {
@@ -66,4 +156,22 @@ setInterval(function() {
 }, 20 * 1000 * 60); // 20 mins
 
 
-app.listen(process.env.PORT || 3000);
+app.listen(process.env.PORT || 8081);
+
+
+function msToTime(s) {
+
+    var ms = s % 1000;
+    s = (s - ms) / 1000;
+    var secs = s % 60;
+    s = (s - secs) / 60;
+    var mins = s % 60;
+    var hrs = (s - mins) / 60;
+
+    var result = {
+        hrs: hrs,
+        mins: mins
+    }
+
+    return result;
+}

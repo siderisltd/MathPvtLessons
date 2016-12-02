@@ -53,7 +53,7 @@
 }
 
 .margin-bottom-20 {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .margin-bottom-30 {
@@ -84,6 +84,66 @@
 .error {
     color: red;
     font-weight: bold;
+}
+
+.carousel-control.left,
+.carousel-control.right {
+    background-image: none
+}
+
+#myCarousel {
+    max-width: 800px;
+    margin: 0 auto;
+    left: -31px;
+}
+
+.carousel-indicators li {
+    background-color: darkgoldenrod;
+}
+
+.glyphicon-chevron-left,
+.glyphicon-chevron-right {
+    background-color: rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 100px black, 0 0 105px black;
+}
+
+.green {
+    color: green;
+}
+
+.steelblue {
+    color: steelblue;
+}
+
+.text-align-center {
+    text-align: center;
+}
+
+.cookie-consent {
+    background-color: #fff;
+    width: 300px;
+    float: right;
+    position: absolute;
+    bottom: 40px;
+    right: 0;
+    margin: 10px 10px;
+    padding: 10px 10px 20px 10px;
+    transition: all 1s ease-out;
+    line-height: 1.3em;
+    font-size: 14px;
+    box-shadow: 0px 0px 3px 0px;
+    text-align: center;
+    z-index: 100;
+}
+
+.cookie-consent-agree {
+    border-radius: 0px;
+    color: rgb(68, 68, 68);
+    background-color: rgb(252, 222, 89);
+    border-color: rgb(234, 200, 50);
+    display: block;
+    margin: 0 auto;
+    margin-top: 20px;
 }
 
 .footer {
@@ -128,6 +188,9 @@
     }
     #spacing-el {
         margin-bottom: 124px;
+    }
+    #myCarousel {
+        left: 0;
     }
 }
 
