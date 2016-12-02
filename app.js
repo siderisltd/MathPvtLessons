@@ -19,7 +19,7 @@ var secret = '2JH6stayiISADHYasdhaghgu123jhhsad6';
 var emailUsername = 'urokmatematika@yahoo.com';
 var emailPassword = 'NeliKancheva123';
 
-var emailReceiver = 'siderisltd@gmail.com'
+var emailReceiver = 'kancheva.neli@gmail.com'
 
 app.engine('ejs', engine);
 app.set('view engine', 'ejs');
@@ -62,7 +62,7 @@ app.get('/zapazi-chas-za-urok-po-matematika', cacheControl('no-cache'), function
 var requestLimiter = new RateLimit({
     windowMs: 3600000 * 4, // 4 hrs
     max: 1, // start blocking after 1 requests 
-    message: "Изглежда или нямате активирани cookies или се опитвате да мамите. Ще може да запазите час след 4 часа."
+    message: "Изглежда, че вече сте запазили час. Ще може да запазите нов след 4 часа."
 });
 
 //TODO: add requestLimiter before cacheControl middleware
