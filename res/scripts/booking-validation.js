@@ -10,7 +10,8 @@ $(function() {
                 required: true,
                 minlength: 10
             },
-            agree: 'required'
+            agree: 'required',
+            ownAddress: 'required'
         },
         messages: {
             name: {
@@ -22,11 +23,13 @@ $(function() {
                 required: 'Телефонът в задължителен',
                 minlength: 'Телефонът трябва да съдържа минимум 10 цифри'
             },
-            agree: 'Трябва да декларирате че сте наясно, че запазвате истински урок'
+            agree: 'Трябва да декларирате че сте наясно, че запазвате истински урок',
+            ownAddress: 'Адресът е задължителен'
         },
         errorPlacement: function(error, element) {
             error.insertBefore(element.parent());
-        }
+        },
+        ignore: ":not(:visible)"
     })
 
     jQuery.validator.addMethod("lettersOnly", function(value, element) {

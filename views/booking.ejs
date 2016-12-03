@@ -33,11 +33,16 @@
 
                 <div class="form-group margin-bottom-30">
                     <legend>Урока ще се проведе</legend>
-                    <div class="form-check">
-                        <label class="form-check-label"><input type="radio" class="form-check-input" name="address" value="own" checked="checked"> На собствен адрес</label>
+                    <div  class="form-check">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="address" value="own"> На собствен адрес
+                        </label>
                     </div>
-                    <div class="form-check">
-                        <label class="form-check-label"><input type="radio" class="form-check-input" name="address" value="teacher"> На адрес на учителя (близо до метростанция "Константин Величков")</label>
+                       <div id="addressInput" class="form-group" style="display:none">
+                            <input id="ownAddress" placeholder="Адрес" type="text" class="form-control" name="ownAddress" />
+                       </div>
+                    <div class="form-check">        
+                        <label class="form-check-label"><input type="radio" class="form-check-input" name="address" value="teacher" checked="checked" > На адрес на учителя (близо до метростанция "Константин Величков")</label>
                     </div>
                 </div>
 
@@ -54,5 +59,29 @@
     </div>
 </div>
 
+<script>
+    $(function(){
+        
+        toggleAddressInput();
+
+        $('input[type="radio"]').change(function(){
+            toggleAddressInput();
+        });
+
+        function toggleAddressInput() {
+            var $ownAddressInput = $('input[value="own"]');
+            var $addressInput =  $('#addressInput');
+            var isOwnChecked = $ownAddressInput.is(':checked');
+
+            if(isOwnChecked) {
+                $addressInput.show();
+            } else {
+                $addressInput.hide();
+                $('#ownAddress-error').hide();
+            }
+        }
+    });
+
+</script>
 
 

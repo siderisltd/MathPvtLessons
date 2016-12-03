@@ -28,7 +28,7 @@ app.use(session({
     secret: 'IADJHAKSDHA&ÂS*^D@4hJ&*&(!@(€С§ААСДХгад-hhwgejqhgjh3242!276njGJAsd8asd76',
     resave: false,
     saveUninitialized: true,
-    cookie: { maxAge: 3600000 * 4 } // 4 hours
+    cookie: { maxAge: 3600000 / 4 } //cookie: { maxAge: 3600000 * 4 } // 4 hours
 }));
 
 app.use("/res", express.static(__dirname + '/res'));
@@ -60,13 +60,13 @@ app.get('/zapazi-chas-za-urok-po-matematika', cacheControl('no-cache'), function
 
 
 var requestLimiter = new RateLimit({
-    windowMs: 3600000 * 4, // 4 hrs
+    windowMs: 3600000 / 4, // 3600000 * 4 // 4 hrs
     max: 1, // start blocking after 1 requests 
     message: "Изглежда, че вече сте запазили час. Ще може да запазите нов след 4 часа."
 });
 
 //TODO: add requestLimiter before cacheControl middleware
-app.post('/zapazi-chas-za-urok-po-matematika', requestLimiter, cacheControl('no-cache'), function(req, res) {
+app.post('/zapazi-chas-za-urok-po-matematika',requestLimiter, cacheControl('no-cache'), function(req, res) {
 
     if (!req.session.secret) {
         var name = req.body.name;
@@ -74,7 +74,7 @@ app.post('/zapazi-chas-za-urok-po-matematika', requestLimiter, cacheControl('no-
         var lessonFor = req.body.lessonsClass;
         var forCustomerAddress = req.body.address === 'own';
         var forTeacherAddress = req.body.address === 'teacher';
-        var address = 'жк Манастирски ливади ул.Клокотница 21';
+        var address = req.body.ownAddress;
 
         var transporter = nodemailer.createTransport({
             service: 'Yahoo',
