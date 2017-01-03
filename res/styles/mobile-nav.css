@@ -1,0 +1,49 @@
+﻿.menu-toggle {
+    text-decoration: none;
+    text-align: center;
+    width: 44px;
+    height: 44px;
+    font-size: 30px;
+    color: rgba(0, 0, 0, 0.5);
+    -webkit-transition: all 0.15s ease-out 0s;
+    -moz-transition: all 0.15s ease-out 0s;
+    transition: all 0.15s ease-out 0s;
+    position: absolute;
+    top: 18px;
+    right: auto;
+    bottom: 0;
+    left: 20px;
+    z-index: 2;
+    cursor: pointer;
+}
+
+    .menu-toggle:hover {
+        color: #000000;
+    }
+
+#toggle-left {
+    display: none;
+}
+
+    #toggle-left:checked ~ .page-wrap nav.menu {
+        left: 0px;
+    }
+
+    #toggle-left:checked ~ .page-wrap .menu-toggle {
+        left: 220px;
+    }
+
+nav.menu {
+    position: fixed;
+    top: 0px;
+    right: auto;
+    bottom: 0px;
+    left: -270px;
+    -webkit-transition: all 0.15s ease-out 0s;
+    -moz-transition: all 0.15s ease-out 0s;
+    transition: all 0.15s ease-out 0s;
+    height: auto;
+    width: 200px;
+    background: #111111;
+    z-index: 2000;
+}

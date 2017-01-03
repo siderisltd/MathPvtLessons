@@ -1,0 +1,296 @@
+<% layout('shared/layout') -%>
+
+<div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 table-bordered">
+      
+        <form role="form" id="booking-form" class="form-horizontal" method="POST" action="/zapazi-chas-za-urok-po-matematika">
+
+            <div>
+
+                <div class="form-group">
+                    <label for="name">Вашето име</label>
+                    <input type="text" id="name" class="form-control" name="name" />
+                </div>
+                
+                       
+                <div class="form-group">
+                    <label for="phone">E-mail</label>
+                    <input type="text" id="email" class="form-control" name="email" />
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Телефон за връзка</label>
+                    <input type="tel" id="phone" class="form-control" name="phone" />
+                </div>
+
+                <div class="form-group">
+                    <label for="lessonClass">Урок за</label>
+                    <select class="form-control" id="lessonClass" name="lessonsClass">
+                            <option value="5">5 клас</option>
+                            <option value="6">6 клас</option>
+                            <option value="7">7 клас</option>
+                            <option value="8">8 клас</option>
+                            <option value="9">9 клас</option>
+                            <option value="10">10 клас</option>
+                            <option value="11">11 клас</option>
+                            <option value="12">12 клас</option>
+                    </select>
+                </div>
+
+                <div class="form-group margin-bottom-30">
+                    <legend>Урока ще се проведе</legend>
+                    <div  class="form-check">
+                        <label class="form-check-label">
+                            <input type="radio" class="form-check-input" name="address" value="own"> На собствен адрес
+                        </label>
+                    </div>
+                       <div id="addressInput" class="form-group" style="display:none">
+                            <input id="ownAddress" placeholder="Адрес" type="text" class="form-control" name="ownAddress" />
+                       </div>
+                    <div class="form-check">        
+                        <label class="form-check-label"><input type="radio" class="form-check-input" name="address" value="teacher" checked="checked" > На адрес на учителя (близо до метростанция "Константин Величков")</label>
+                    </div>
+                </div>
+
+
+
+
+
+            <div id="schedCalendar">
+                <a id="datepicker-c" class="btn btn-info btn-circle btn-lg">
+                    <i class="glyphicon glyphicon-calendar"></i>
+                </a>
+            </div>
+
+            
+            <div  class="form-check">
+                <label class="form-check-label">
+                    <input type="text" style="opacity:0" id="hour" class="form-check-input" name="hour">
+                </label>
+            </div>
+
+            <div id="weekly-view"></div>
+            
+                <div class="form-group">
+                    <label class="form-check-label">
+                      <input type="checkbox" class="form-check-input" id="agree" name="agree" >Наясно съм, че запазвам истински урок с преподавателя по математика
+                    </label>
+                </div>
+
+
+                <input type="submit" class="btn btn-success pull-right margin-bottom-60" value="Запази" />
+                <a href="/" class="btn btn-danger pull-right margin-bottom-60 margin-right-10">Отказ</a>
+            </div>
+        
+
+        </form>
+    </div>
+</div>
+
+
+
+<script>
+    $(function(){
+
+
+
+        toggleAddressInput();
+
+        $('input[type="radio"]').change(function(){
+            toggleAddressInput();
+        });
+
+        $('.hourBtn').click(function(){
+            $('#hour-error').hide();
+
+        });
+
+        function toggleAddressInput() {
+            var $ownAddressInput = $('input[value="own"]');
+            var $addressInput =  $('#addressInput');
+            var isOwnChecked = $ownAddressInput.is(':checked');
+
+            if(isOwnChecked) {
+                $addressInput.show();
+            } else {
+                $addressInput.hide();
+                $('#ownAddress-error').hide();
+            }
+        }
+
+
+
+
+
+        $(function(){
+            var $element = $('#schedCalendar');
+
+
+
+            $element.dSchedChart({
+                includeWeekends: true,
+                availableHoursEndpoint: '/calendar/getHours',
+                loadingMessage:'Loading...',
+                calendarClickElem: '#datepicker-c'
+            });
+
+        })
+
+
+
+
+
+
+    });
+
+        (function ( $ ) {
+ 
+                $.fn.dSchedChart = function( options ) {
+                
+                var settings = $.extend({
+                    includeWeekends: false,
+                }, options );
+
+
+                var element = this;
+
+                var $calendar = $('<div />').attr('id', 'datepicker-wrapper');
+                element.append($('<span />').attr('id', 'startDate')); 
+                element.append($('<span />').attr('id', 'endDate'));
+
+                element.append($calendar);
+                element.append($('<div />').attr('id', 'loadingmessage').attr('style','display:none').text(settings.loadingMessage));
+
+
+                var startDate;
+                var endDate;
+
+                var selectCurrentWeek = function() {
+                    window.setTimeout(function () {
+                        $calendar.find('.ui-datepicker-current-day a').addClass('ui-state-active')
+                    }, 1);
+                }
+
+                // $('body').on('click', '.hourBtn', function() {
+                //     if($('#hour').val() == '' && $('#weekly-view button').length === 1) {
+                //          $(settings.calendarClickElem).click();
+                //     }
+                // });
+
+                $(settings.calendarClickElem).click(function(){
+
+                     var visible = $calendar.is(':visible');
+
+                    if(!visible){
+                         $('html, body').animate({
+                            scrollTop: $(settings.calendarClickElem).offset().top
+                       }, 1000);
+                    } 
+                      
+                })
+
+
+                $calendar.datepicker( {
+                    showOtherMonths: true,
+                    selectOtherMonths: true,
+                    onSelect: function(dateText, inst) { 
+                        var date = $(this).datepicker('getDate');
+                        startDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay());
+                        endDate = new Date(date.getFullYear(), date.getMonth(), date.getDate() - date.getDay() + 6);
+                        var dateFormat = inst.settings.dateFormat || $.datepicker._defaults.dateFormat;
+                        $('#startDate').text($.datepicker.formatDate( dateFormat, startDate, inst.settings ));
+                        $('#endDate').text($.datepicker.formatDate( dateFormat, endDate, inst.settings ));
+                        selectCurrentWeek();
+                        $(this).trigger('dateChange');
+                        
+                        var endpoint = settings.availableHoursEndpoint;
+                        var data = {
+                            pickedDate: new Date(startDate + 1), // check issue if sun is picked
+                            includeWeekends: settings.includeWeekends
+                        }
+
+                        $('#loadingmessage').show();
+                        $.post(endpoint, data, function(res){
+                            //debugger;
+                            $('#loadingmessage').hide();
+                            $('#weekly-view').html(res);
+
+                      
+
+
+                             $('.hourBtn').on('click', function(){
+
+                                 var $that = $(this);
+
+                                 var date = new Date($that.val());
+                                 var hourText = $that.text();
+                                 var dayName = $that.siblings('.weekDay').text();
+                                 var day = date.getDate();
+                                 var monthIndex = date.getMonth() + 1 > 12 ? 12 : date.getMonth() + 1;
+                                 var year = date.getFullYear();
+                                 var hourText = day + '.' +  monthIndex + '.' + year + ' ' + dayName + ' ' + hourText;
+
+                                 $that.text(hourText);
+                                 $('#hour-error').hide();
+                                 //debugger;
+
+                                 $('#startDate').text('');
+                                 $('#endDate').text('');
+
+                                 $('#weekly-view').html($that);
+                                 $('#hour').val(date);
+                             });
+
+                            // fill the UI with hours and buttons to add the hour
+                        });
+                            
+                    },
+                    beforeShowDay: function(date) {
+                        var cssClass = '';
+                        if(date >= startDate && date <= endDate)
+                            cssClass = 'ui-datepicker-current-day';
+                        return [true, cssClass];
+                    },
+                    onChangeMonthYear: function(year, month, inst) {
+                        selectCurrentWeek();
+                    },
+                    minDate: 0
+                });
+    
+                $(element).on('mousemove', '#datepicker-wrapper .ui-datepicker-calendar tr', function() { $(this).find('td a').addClass('ui-state-hover'); });
+                $(element).on('mouseleave', '#datepicker-wrapper .ui-datepicker-calendar tr', function() { $(this).find('td a').removeClass('ui-state-hover'); });
+
+
+                 $calendar.on('dateChange', function(){
+                    $calendar.hide();
+                 }); 
+
+                 $(element).on('click', function(){
+                    var visible = $calendar.is(':visible');
+
+                    if(!visible){
+                         $calendar.effect( "slide", "right", 'fast');
+                    } 
+                 });
+
+                 $(document).on("click", function() {
+                     $calendar.hide();
+                 });
+
+                 $calendar.on("click", function(e) {
+                     e.stopPropagation(); 
+                 });
+
+               
+                 $('#datepicker-wrapper .ui-state-active')[0].click();
+               
+
+
+                return element;
+    };
+ 
+}( jQuery ));
+
+</script>
+
+
