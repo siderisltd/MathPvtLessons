@@ -141,7 +141,8 @@ function getAvailableTimeArr(auth, pickedDate) {
 
     var calendar = google.calendar('v3');
 
-    var curr = new Date(pickedDate);
+    var currSofia = new Date(pickedDate).toLocaleString('en-US', { timeZone: 'Europe/Sofia' });
+    var curr = new Date(currSofia);
     var first = curr.getDate() - curr.getDay() + 1;
     var last = first + 6;
 
