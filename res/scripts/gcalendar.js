@@ -148,6 +148,9 @@ function getAvailableTimeArr(auth, pickedDate) {
     var firstDayOfWeek = new Date(curr.setDate(first)).toISOString();
     var lastDayOfWeek = new Date(new Date(curr.setDate(last)).setHours(23, 59, 00)).toISOString();
 
+    console.log('firstDayOfWeek:' + firstDayOfWeek);
+    console.log('lastDayOfWeek: ' + lastDayOfWeek);
+
 
     calendar.events.list({
         auth: auth,
