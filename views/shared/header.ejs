@@ -10,6 +10,9 @@
 
           <nav class="navigation">
               <ul class="menu">
+                   <li  <% if (typeof(pageId) !== typeof(undefined) && pageId === 'index') { %>class="active-menu-item" <% } %> >
+                      <a href="/" >Начало</a>
+                  </li>
                   <li  <% if (typeof(pageId) !== typeof(undefined) && pageId === 'lessons') { %>class="active-menu-item" <% } %> >
                       <a href="/chastni-uroci-po-matematika" >Уроци</a>
                   </li>
@@ -19,9 +22,9 @@
                   <li <% if (typeof(pageId) !== typeof(undefined) && pageId === 'prices') { %>class="active-menu-item" <% } %>>
                       <a href="/chastni-uroci-po-matematika-ceni" >Цени</a>
                         <ul class="submenu">
-                          <li><a href="/chastni-uroci-po-matematika/5">Индивидуални</a></li>
-                          <li><a href="/chastni-uroci-po-matematika/6">Групови</a></li>
-                          <li><a href="/chastni-uroci-po-matematika/7">Абонаменти</a></li>
+                          <li><a href="/chastni-uroci-po-matematika-ceni/individualni-zanimaniq">Индивидуални</a></li>
+                          <li><a href="/chastni-uroci-po-matematika-ceni/grupovi-zanimaniq">Групови</a></li>
+                          <li><a href="/chastni-uroci-po-matematika-ceni/abonamenti">Абонаменти</a></li>
                       </ul>
                   </li>
                   <li <% if (typeof(pageId) !== typeof(undefined) && pageId === 'teacher') { %>class="active-menu-item" <% } %> >
@@ -45,6 +48,9 @@
 
               <nav class="menu">
                   <ul class="menu-mobile">
+                      <li  <% if (typeof(pageId) !== typeof(undefined) && pageId === 'index') { %>class="active-menu-item" <% } %> >
+                      <a href="/" >Начало</a>
+                     </li>
                       <li <% if (typeof(pageId) !== typeof(undefined) && pageId === 'lessons') { %>class="active-menu-item" <% } %>>
                           <a href="/chastni-uroci-po-matematika">Уроци</a>
                       </li>

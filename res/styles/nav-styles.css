@@ -25,6 +25,12 @@
     z-index: 100;
 }
 
+@media only screen and (max-width: 1199px) {
+    .menu>li {
+        width: 160px;
+    }
+}
+
 .menu>li {
     display: block;
     float: left;

@@ -1,5 +1,6 @@
 ﻿body {
     font-size: 14px;
+    overflow-y: scroll;
 }
 
 h1 {
@@ -39,8 +40,8 @@ h1 {
 }
 
 #header {
-    position: relative;
-    left: 92px;
+    /*position: relative;
+    left: 92px;*/
 }
 
 .navbar-header {
@@ -94,6 +95,10 @@ h1 {
     float: left;
     margin: 10 10 10 10;
     margin: 0 30px 10px 0;
+}
+
+.margin-right-15 {
+    margin-right: 15px;
 }
 
 .error {
@@ -199,6 +204,31 @@ h1 {
     transition: all .5s ease;
 }
 
+.hourBtn {
+    padding: 3% 0;
+}
+
+.week-container {
+    text-align: center;
+}
+
+#datepicker-c {
+    margin-top: 10px;
+}
+
+#datepicker-c,
+.ui-datepicker {
+    margin-bottom: 15px;
+}
+
+.thumbnail {
+    height: 450px;
+}
+
+.thumbnail img {
+    height: 150px;
+}
+
 @media only screen and (max-width: 1221px) {
     #header {
         left: 93 px;
@@ -240,5 +270,42 @@ h1 {
     .navbar-header img {
         width: 40px;
         height: 50px;
+    }
+}
+
+@media (max-width: 768px) {
+    .seven-cols .col-md-1,
+    .seven-cols .col-sm-1,
+    .seven-cols .col-lg-1 {
+        width: 50%;
+        *width: 50%;
+        float: left;
+    }
+}
+
+@media (min-width: 768px) {
+    .seven-cols .col-md-1,
+    .seven-cols .col-sm-1,
+    .seven-cols .col-lg-1 {
+        width: 14.285714285714285714285714285714%;
+        *width: 14.285714285714285714285714285714%;
+    }
+}
+
+@media (min-width: 992px) {
+    .seven-cols .col-md-1,
+    .seven-cols .col-sm-1,
+    .seven-cols .col-lg-1 {
+        width: 14.285714285714285714285714285714%;
+        *width: 14.285714285714285714285714285714%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .seven-cols .col-md-1,
+    .seven-cols .col-sm-1,
+    .seven-cols .col-lg-1 {
+        width: 14.285714285714285714285714285714%;
+        *width: 14.285714285714285714285714285714%;
     }
 }

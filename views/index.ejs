@@ -44,3 +44,14 @@
   </a>
 </div>
 </div>
+
+<script>
+  $(function() {  
+  	 $("#myCarousel").on('swiperight', function() {  
+    		  $(this).carousel('prev');  
+	   });  
+		 $("#myCarousel").on('swipeleft', function() {  
+		      $(this).carousel('next');  
+	   });  
+	});  
+</script>
