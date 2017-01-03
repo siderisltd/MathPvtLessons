@@ -98,10 +98,12 @@ function insertEvent(auth, start, end, classNum, location, teacherPhone, attende
             description: 'Урок по математика за  ' + classNum + ' клас. При въпроси или проблеми, можете да ме потърсите на тел: ' + teacherPhone,
             location: location,
             start: {
-                dateTime: start
+                dateTime: start,
+                timeZone: 'UTC+2:00'
             },
             end: {
-                dateTime: end
+                dateTime: end,
+                timeZone: 'UTC+2:00'
             },
             attendees: [
                 { email: attendeeEmail },
