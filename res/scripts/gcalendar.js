@@ -140,6 +140,8 @@ function getAvailableTimeArr(auth, pickedDate) {
 
     var calendar = google.calendar('v3');
 
+    console.log('pickedDate: ' + pickedDate);
+
     var curr = new Date(moment.tz(new Date(pickedDate), "Europe/Sofia").format());
     var first = curr.getDate() - curr.getDay() + 1;
     var last = first + 6;
@@ -163,8 +165,8 @@ function getAvailableTimeArr(auth, pickedDate) {
             deferred.reject('The API returned an error: ' + err);
         }
         var events = response.items;
-        console.log(events);
-        
+        // console.log(events);
+
         if (events.length == 0) {
             deferred.reject('No upcoming events found.');
         } else {
