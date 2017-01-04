@@ -182,7 +182,9 @@ function getAvailableTimeArr(auth, pickedDate) {
             deferred.reject('The API returned an error: ' + err);
         }
         var events = response.items;
-        // console.log(events);
+        console.log('events count: ' + events.length)
+
+        console.log(events);
 
         if (events.length == 0) {
             deferred.reject('No upcoming events found.');
