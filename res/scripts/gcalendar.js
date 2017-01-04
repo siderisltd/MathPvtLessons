@@ -142,8 +142,7 @@ function getAvailableTimeArr(auth, pickedDate) {
 
     console.log('pickedDate: ' + pickedDate);
 
-    //var curr = new Date(moment.tz(new Date(pickedDate), "Europe/Sofia").format());
-    var curr = new Date(pickedDate);
+    var curr = new Date(moment.tz(new Date(pickedDate), "Europe/Sofia").format());
 
     var firstDay = new Date(curr);
     firstDay = firstDay.addDays(1);
