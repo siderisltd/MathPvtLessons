@@ -140,16 +140,15 @@ function getAvailableTimeArr(auth, pickedDate) {
 
     var calendar = google.calendar('v3');
 
-    var currSofia = new Date(pickedDate).toLocaleString('en-US', { timeZone: 'Europe/Sofia' });
-    var curr = new Date(currSofia);
+    var curr = new Date(moment.tz(new Date(pickedDate), "Europe/Sofia").format());
     var first = curr.getDate() - curr.getDay() + 1;
     var last = first + 6;
 
-    var firstDayOfWeek = new Date(curr.setDate(first)).toISOString();
-    var lastDayOfWeek = new Date(new Date(curr.setDate(last)).setHours(23, 59, 00)).toISOString();
+    var firstDay = moment.tz(new Date(curr.setDate(first)), "Europe/Sofia").format();
+    var lastDay = moment.tz(new Date(new Date(curr.setDate(last)).setHours(23, 59, 00)), "Europe/Sofia").format();
 
-    var firstDay = moment.tz(firstDayOfWeek, "Europe/Sofia").format();
-    var lastDay = moment.tz(lastDayOfWeek, "Europe/Sofia").format();
+    console.log('firstDay:' + firstDay);
+    console.log('lastDay: ' + lastDay);
 
     calendar.events.list({
         auth: auth,
@@ -164,10 +163,12 @@ function getAvailableTimeArr(auth, pickedDate) {
             deferred.reject('The API returned an error: ' + err);
         }
         var events = response.items;
+        console.log(events);
+        
         if (events.length == 0) {
             deferred.reject('No upcoming events found.');
         } else {
-            var availableHours = getAvailableHours(events, firstDayOfWeek, lastDayOfWeek);
+            var availableHours = getAvailableHours(events, firstDay, lastDay);
 
             deferred.resolve(availableHours);
         }
