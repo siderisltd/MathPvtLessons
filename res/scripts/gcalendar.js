@@ -1,9 +1,8 @@
-var fs = require('fs');
-var readline = require('readline');
 var google = require('googleapis');
 var googleAuth = require('google-auth-library');
 var NodeCache = require("node-cache");
 var q = require("q");
+var moment = require("moment-timezone");
 
 var cache = new NodeCache();
 const CACHE_TOKEN_KEY = 'calTok';
@@ -149,17 +148,16 @@ function getAvailableTimeArr(auth, pickedDate) {
     var firstDayOfWeek = new Date(curr.setDate(first)).toISOString();
     var lastDayOfWeek = new Date(new Date(curr.setDate(last)).setHours(23, 59, 00)).toISOString();
 
-    console.log('firstDayOfWeek:' + firstDayOfWeek);
-    console.log('lastDayOfWeek: ' + lastDayOfWeek);
-
+    var firstDay = moment.tz(firstDayOfWeek, "Europe/Sofia").format();
+    var lastDay = moment.tz(lastDayOfWeek, "Europe/Sofia").format();
 
     calendar.events.list({
         auth: auth,
         calendarId: 'primary',
         singleEvents: true,
         orderBy: 'startTime',
-        timeMin: firstDayOfWeek,
-        timeMax: lastDayOfWeek,
+        timeMin: firstDay,
+        timeMax: lastDay,
 
     }, function(err, response) {
         if (err) {
@@ -256,7 +254,7 @@ function getFreeTime(events, weekDay, firstHourTimeString, lastHourTimeString, i
     return dateArray;
 }
 
-function getAvailableHours(events, firstDayOfWeek, lastDayOfWeek) { // !!! Important : in order this to work properly there should be events for every day - otherways, available hours will not be listed
+function getAvailableHours(events, firstDayOfWeek, lastDayOfWeek) {
 
     var availableFrom = 08;
     var availableTo = 21;
