@@ -142,15 +142,33 @@ function getAvailableTimeArr(auth, pickedDate) {
 
     console.log('pickedDate: ' + pickedDate);
 
-    var curr = new Date(moment.tz(new Date(pickedDate), "Europe/Sofia").format());
+    //var curr = new Date(moment.tz(new Date(pickedDate), "Europe/Sofia").format());
+    var curr = new Date(pickedDate);
+
     var first = curr.getDate() - curr.getDay() + 1;
     var last = first + 6;
 
-    var firstDay = new Date(curr.setDate(first)).toISOString();
-    var lastDay = new Date(new Date(curr.setDate(last)).setHours(23, 59, 00)).toISOString();
+    var firstDay = new Date();
+    firstDay.setDate(first);
+    firstDay.setHours(0, 0, 0);
+
+    var lastDay = new Date();
+    lastDay.setDate(last);
+    lastDay.setHours(23, 59, 00);
+
+
+    console.log('first' + first);
+    console.log('last' + last);
+
 
     console.log('firstDay:' + firstDay);
     console.log('lastDay: ' + lastDay);
+
+    lastDay = lastDay.toISOString();
+    firstDay = firstDay.toISOString();
+
+    console.log('firstDayIso:' + firstDay);
+    console.log('lastDayIso: ' + lastDay);
 
     calendar.events.list({
         auth: auth,
