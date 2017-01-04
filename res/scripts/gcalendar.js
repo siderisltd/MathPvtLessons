@@ -145,7 +145,7 @@ function getAvailableTimeArr(auth, pickedDate) {
     var curr = new Date(moment.tz(new Date(pickedDate), "Europe/Sofia").format());
 
     var firstDay = new Date(curr);
-    firstDay = firstDay.addDays(2);
+    firstDay = firstDay.addDays(1);
     firstDay.setHours(0, 0, 0);
 
     var firstDayOfWeek = moment.tz(firstDay, "Europe/Sofia").format();
