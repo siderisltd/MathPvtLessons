@@ -142,32 +142,13 @@ function getAvailableTimeArr(auth, pickedDate) {
 
     console.log('pickedDate: ' + pickedDate);
 
-    var curr = new Date(moment.tz(new Date(pickedDate), "Europe/Sofia").format());
 
-    var firstDay = new Date(curr);
-    firstDay = firstDay.addDays(1);
-    firstDay.setHours(0, 0, 0);
+    var firstDay = moment.tz(getMonday(pickedDate), "Europe/Sofia").format();
+    var lastDay = moment.tz(getMonday(pickedDate).addDays(6).setHours(23, 59, 00), "Europe/Sofia").format();
 
-    var firstDayOfWeek = moment.tz(firstDay, "Europe/Sofia").format();
-
-
-    var lastDay = new Date(curr);
-    lastDay = lastDay.addDays(8);
-    lastDay.setHours(23, 59, 00);
-
-    var lastDayOfWeek = moment.tz(lastDay, "Europe/Sofia").format();
 
     console.log('firstDay:' + firstDay);
     console.log('lastDay: ' + lastDay);
-
-    console.log('firstDayBg:' + firstDayOfWeek);
-    console.log('lastDayBg: ' + lastDayOfWeek);
-
-    firstDay = new Date(firstDayOfWeek).toISOString();
-    lastDay = new Date(lastDayOfWeek).toISOString();
-
-    console.log('firstDayIsoBg:' + firstDay);
-    console.log('lastDayIsoBg: ' + lastDay);
 
     calendar.events.list({
         auth: auth,
@@ -184,7 +165,7 @@ function getAvailableTimeArr(auth, pickedDate) {
         var events = response.items;
         console.log('events count: ' + events.length)
 
-        console.log(events);
+        // console.log(events);
 
         if (events.length == 0) {
             deferred.reject('No upcoming events found.');
@@ -298,4 +279,11 @@ function getAvailableHours(events, firstDayOfWeek, lastDayOfWeek) {
 
     //console.log(availableHours);
     return availableHours;
+}
+
+function getMonday(d) {
+    d = new Date(d).addDays(1);
+    var day = d.getDay(),
+        diff = d.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is sunday
+    return new Date(d.setDate(diff));
 }
