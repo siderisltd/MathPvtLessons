@@ -143,8 +143,8 @@ function getAvailableTimeArr(auth, pickedDate) {
     console.log('pickedDate: ' + pickedDate);
 
 
-    var firstDay = moment.tz(new Date(pickedDate).addDays(1), "Europe/Sofia").format();
-    var lastDay = new Date(new Date(pickedDate).addDays(7).setHours(23, 59, 00)).toISOString();
+    var firstDay = moment.tz(new Date(pickedDate).addDays(1), "UTC").format();
+    var lastDay = moment.tz(new Date(new Date(pickedDate).addDays(7).setHours(23, 59, 00)), "UTC").format();
 
 
     console.log('firstDay:' + firstDay);
