@@ -148,19 +148,26 @@ function getAvailableTimeArr(auth, pickedDate) {
     firstDay = firstDay.addDays(1);
     firstDay.setHours(0, 0, 0);
 
+    var firstDayOfWeek = moment.tz(firstDay, "Europe/Sofia").format();
+
+
     var lastDay = new Date(curr);
     lastDay = lastDay.addDays(7);
     lastDay.setHours(23, 59, 00);
 
+    var lastDayOfWeek = moment.tz(lastDay, "Europe/Sofia").format();
 
     console.log('firstDay:' + firstDay);
     console.log('lastDay: ' + lastDay);
 
-    lastDay = lastDay.toISOString();
-    firstDay = firstDay.toISOString();
+    console.log('firstDayBg:' + firstDayOfWeek);
+    console.log('lastDayBg: ' + lastDayOfWeek);
 
-    console.log('firstDayIso:' + firstDay);
-    console.log('lastDayIso: ' + lastDay);
+    firstDay = new Date(firstDayOfWeek).toISOString();
+    lastDay = new Date(lastDayOfWeek).toISOString();
+
+    console.log('firstDayIsoBg:' + firstDay);
+    console.log('lastDayIsoBg: ' + lastDay);
 
     calendar.events.list({
         auth: auth,
